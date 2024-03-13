@@ -21,6 +21,7 @@ let ProdutosController = class ProdutosController {
         this.produtosService = produtosService;
     }
     async create(produto) {
+        console.log('aqui', produto);
         return this.produtosService.create(produto);
     }
     async get() {
