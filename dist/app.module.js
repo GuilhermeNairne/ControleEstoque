@@ -12,13 +12,15 @@ const produtos_controller_1 = require("./produtos.controller");
 const produtos_service_1 = require("./produtos.service");
 const mongoose_1 = require("@nestjs/mongoose");
 const produto_model_1 = require("./produto.model");
+const dotenv_1 = require("dotenv");
+(0, dotenv_1.config)();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017'),
+            mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/snaptoon'),
             mongoose_1.MongooseModule.forFeature([{ name: produto_model_1.Produto.name, schema: produto_model_1.ProdutoSchema }]),
         ],
         controllers: [produtos_controller_1.ProdutosController],

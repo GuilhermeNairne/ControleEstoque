@@ -28,4 +28,9 @@ export declare class ProdutosService {
     private produtoModel;
     constructor(produtoModel: Model<ProdutoDocument>);
     create(produto: Produto): Promise<Produto>;
+    get(): Promise<(import("mongoose").Document<unknown, {}, ProdutoDocument> & Produto & import("mongoose").Document<any, any, any> & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
+    delete(id: string): Promise<void>;
+    update(id: string, updateData: Partial<Produto>): Promise<Produto>;
 }

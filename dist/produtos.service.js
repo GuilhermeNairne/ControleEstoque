@@ -28,7 +28,35 @@ let ProdutosService = class ProdutosService {
             return createdProduto;
         }
         catch (error) {
+            console.log(error);
             throw new Error('Erro ao cadastrar produto!');
+        }
+    }
+    async get() {
+        try {
+            const produtos = await this.produtoModel.find().exec();
+            return produtos;
+        }
+        catch (error) {
+            throw new Error('Erro ao trazer os produtos!');
+        }
+    }
+    async delete(id) {
+        try {
+            await this.produtoModel.findByIdAndDelete(id).exec();
+        }
+        catch (error) {
+            throw new Error('Erro ao excluir produto.');
+        }
+    }
+    async update(id, updateData) {
+        try {
+            const updatedProduto = await this.produtoModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
+            return updatedProduto;
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('Erro ao atualizar produto.');
         }
     }
 };

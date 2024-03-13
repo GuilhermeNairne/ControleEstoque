@@ -23,6 +23,28 @@ let ProdutosController = class ProdutosController {
     async create(produto) {
         return this.produtosService.create(produto);
     }
+    async get() {
+        return this.produtosService.get();
+    }
+    async delete(id) {
+        try {
+            await this.produtosService.delete(id);
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('Erro ao excluir produto.');
+        }
+    }
+    async update(id, updateData) {
+        try {
+            const updatedProduto = await this.produtosService.update(id, updateData);
+            return updatedProduto;
+        }
+        catch (error) {
+            console.log(error);
+            throw new Error('Erro ao atualizar produto.');
+        }
+    }
 };
 exports.ProdutosController = ProdutosController;
 __decorate([
@@ -32,6 +54,27 @@ __decorate([
     __metadata("design:paramtypes", [produto_model_1.Produto]),
     __metadata("design:returntype", Promise)
 ], ProdutosController.prototype, "create", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ProdutosController.prototype, "get", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ProdutosController.prototype, "delete", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], ProdutosController.prototype, "update", null);
 exports.ProdutosController = ProdutosController = __decorate([
     (0, common_1.Controller)('/produtos'),
     __metadata("design:paramtypes", [produtos_service_1.ProdutosService])
