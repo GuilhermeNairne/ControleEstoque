@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Delete, Param, Patch } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Delete,
+  Param,
+  Patch,
+} from '@nestjs/common';
 import { ProdutosService } from './produtos.service';
 import { Produto } from './produto.model';
 
@@ -21,13 +29,15 @@ export class ProdutosController {
     try {
       await this.produtosService.delete(id);
     } catch (error) {
-      console.log(error);
       throw new Error('Erro ao excluir produto.');
     }
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateData: Partial<Produto>): Promise<Produto> {
+  async update(
+    @Param('id') id: string,
+    @Body() updateData: Partial<Produto>,
+  ): Promise<Produto> {
     try {
       const updatedProduto = await this.produtosService.update(id, updateData);
       return updatedProduto;
@@ -36,5 +46,4 @@ export class ProdutosController {
       throw new Error('Erro ao atualizar produto.');
     }
   }
-  
 }

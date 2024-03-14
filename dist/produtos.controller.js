@@ -21,7 +21,6 @@ let ProdutosController = class ProdutosController {
         this.produtosService = produtosService;
     }
     async create(produto) {
-        console.log('aqui', produto);
         return this.produtosService.create(produto);
     }
     async get() {
@@ -37,6 +36,7 @@ let ProdutosController = class ProdutosController {
         }
     }
     async update(id, updateData) {
+        console.log('aquiiii', id, updateData);
         try {
             const updatedProduto = await this.produtosService.update(id, updateData);
             return updatedProduto;
