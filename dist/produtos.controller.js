@@ -31,12 +31,10 @@ let ProdutosController = class ProdutosController {
             await this.produtosService.delete(id);
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao excluir produto.');
         }
     }
     async update(id, updateData) {
-        console.log('aquiiii', id, updateData);
         try {
             const updatedProduto = await this.produtosService.update(id, updateData);
             return updatedProduto;
