@@ -8,6 +8,12 @@ Projeto criado em JavaScript utilizando o framwork Nest.JS
 
 * Listagem dos produtos
 
+## Funcionalidades em desenvolvimento
+
+* Cadastro de categorias
+
+* Login
+
 ### `Clonar o projeto`
 
 https://github.com/GuilhermeNairne/ControleEstoque.git
