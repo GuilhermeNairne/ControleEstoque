@@ -7,8 +7,8 @@ import {
   Param,
   Patch,
 } from '@nestjs/common';
-import { ProdutosService } from './produtos.service';
-import { Produto } from './produto.model';
+import { ProdutosService } from '../Services/produtos.service';
+import { Produto } from '../Models/produto.model';
 
 @Controller('/produtos')
 export class ProdutosController {
@@ -38,11 +38,7 @@ export class ProdutosController {
     @Param('id') id: string,
     @Body() updateData: Partial<Produto>,
   ): Promise<Produto> {
-    try {
-      const updatedProduto = await this.produtosService.update(id, updateData);
-      return updatedProduto;
-    } catch (error) {
-      throw new Error('Erro ao atualizar produto.');
-    }
+    const updatedProduto = await this.produtosService.update(id, updateData);
+    return updatedProduto;
   }
 }
