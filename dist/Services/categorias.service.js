@@ -28,7 +28,6 @@ let CategoriasService = class CategoriasService {
             return createdCategoria;
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao cadastrar categoria!');
         }
     }
@@ -60,17 +59,42 @@ let CategoriasService = class CategoriasService {
     }
     async update(id, updateData) {
         try {
+            if (updateData.idCategoriaAntiga) {
+                const categoriaAntiga = await this.categoriaModel
+                    .findById(updateData.idCategoriaAntiga)
+                    .exec();
+                const categoriaAtual = await this.categoriaModel.findById(id).exec();
+                const idParaRemover = (updateData.idsProdutos || []).filter((idProduto) => categoriaAntiga.idsProdutos.includes(idProduto));
+                await this.categoriaModel
+                    .findByIdAndUpdate(id, { $pull: { idsProdutos: { $in: idParaRemover } } }, { new: true })
+                    .exec();
+                const idParaAdicionar = (updateData.idsProdutos || []).filter((idProduto) => !categoriaAtual.idsProdutos.includes(idProduto));
+                const updatedCategoria = await this.categoriaModel
+                    .findByIdAndUpdate(id, { $addToSet: { idsProdutos: { $each: idParaAdicionar } } }, { new: true })
+                    .exec();
+                return updatedCategoria;
+            }
             const categoria = await this.categoriaModel.findById(id).exec();
             if (!categoria) {
                 throw new Error('Categoria não encontrada');
             }
-            const idsParaRemover = (updateData.idsProdutos || []).filter((idProduto) => categoria.idsProdutos.includes(idProduto));
+            const idParaRemover = (updateData.idsProdutos || []).filter((idProduto) => categoria.idsProdutos.includes(idProduto));
             await this.categoriaModel
-                .findByIdAndUpdate(id, { $pull: { idsProdutos: { $in: idsParaRemover } } }, { new: true })
+                .findByIdAndUpdate(id, {
+                nome: updateData.nome,
+                $pull: {
+                    idsProdutos: { $in: idParaRemover },
+                },
+            }, { new: true })
                 .exec();
-            const idsParaAdicionar = (updateData.idsProdutos || []).filter((idProduto) => !categoria.idsProdutos.includes(idProduto));
+            const idParaAdicionar = (updateData.idsProdutos || []).filter((idProduto) => !categoria.idsProdutos.includes(idProduto));
             const updatedCategoria = await this.categoriaModel
-                .findByIdAndUpdate(id, { $addToSet: { idsProdutos: { $each: idsParaAdicionar } } }, { new: true })
+                .findByIdAndUpdate(id, {
+                nome: updateData.nome,
+                $addToSet: {
+                    idsProdutos: { $each: idParaAdicionar },
+                },
+            }, { new: true })
                 .exec();
             return updatedCategoria;
         }

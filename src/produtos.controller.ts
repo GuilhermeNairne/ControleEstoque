@@ -42,7 +42,6 @@ export class ProdutosController {
       const updatedProduto = await this.produtosService.update(id, updateData);
       return updatedProduto;
     } catch (error) {
-      console.log(error);
       throw new Error('Erro ao atualizar produto.');
     }
   }

@@ -29,9 +29,33 @@ export declare class ProdutosController {
     private produtosService;
     constructor(produtosService: ProdutosService);
     create(produto: Produto): Promise<Produto>;
-    get(): Promise<(import("mongoose").Document<unknown, {}, import("../Models/produto.model").ProdutoDocument> & Produto & import("mongoose").Document<any, any, any> & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    get(): Promise<{
+        categoriaName: string;
+        nome: string;
+        categoriaId: string;
+        preço: number;
+        quantidade: number;
+        _id: any;
+        __v?: any;
+        $locals: Record<string, unknown>;
+        $op: "remove" | "save" | "validate";
+        $where: Record<string, unknown>;
+        baseModelName?: string;
+        collection: import("mongoose").Collection<import("bson").Document>;
+        db: import("mongoose").Connection;
+        errors?: import("mongoose").Error.ValidationError;
+        id?: any;
+        isNew: boolean;
+        schema: import("mongoose").Schema<any, import("mongoose").Model<any, any, any, any, any, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, {
+            [x: string]: unknown;
+        }, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<{
+            [x: string]: unknown;
+        }>> & import("mongoose").FlatRecord<{
+            [x: string]: unknown;
+        }> & Required<{
+            _id: unknown;
+        }>>;
+    }[]>;
     delete(id: string): Promise<void>;
     update(id: string, updateData: Partial<Produto>): Promise<Produto>;
 }

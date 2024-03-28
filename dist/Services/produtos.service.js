@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const produto_model_1 = require("../Models/produto.model");
+const categorias_service_1 = require("./categorias.service");
 let ProdutosService = class ProdutosService {
-    constructor(produtoModel) {
+    constructor(produtoModel, categoriaService) {
         this.produtoModel = produtoModel;
+        this.categoriaService = categoriaService;
     }
     async create(produto) {
         try {
@@ -34,7 +36,14 @@ let ProdutosService = class ProdutosService {
     async get() {
         try {
             const produtos = await this.produtoModel.find().exec();
-            return produtos;
+            const categoriaIds = produtos.map((produto) => produto.categoriaId);
+            const categoriasPromises = categoriaIds.map((categoriaId) => this.categoriaService.getById(categoriaId));
+            const categorias = await Promise.all(categoriasPromises);
+            const produtosComCategorias = produtos.map((produto, index) => ({
+                ...produto.toObject(),
+                categoriaName: categorias[index]?.nome || 'Categoria não encontrada',
+            }));
+            return produtosComCategorias;
         }
         catch (error) {
             throw new Error('Erro ao trazer os produtos!');
@@ -65,6 +74,7 @@ exports.ProdutosService = ProdutosService;
 exports.ProdutosService = ProdutosService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, mongoose_1.InjectModel)(produto_model_1.Produto.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        categorias_service_1.CategoriasService])
 ], ProdutosService);
 //# sourceMappingURL=produtos.service.js.map

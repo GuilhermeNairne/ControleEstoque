@@ -8,6 +8,9 @@ export class Categoria {
 
   @Prop({ required: false })
   idsProdutos: string[];
+
+  @Prop({ required: false })
+  idCategoriaAntiga: string;
 }
 
 export type CategoriaDocument = Categoria & Document;

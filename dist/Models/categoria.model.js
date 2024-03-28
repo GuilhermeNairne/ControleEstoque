@@ -22,6 +22,10 @@ __decorate([
     (0, mongoose_1.Prop)({ required: false }),
     __metadata("design:type", Array)
 ], Categoria.prototype, "idsProdutos", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({ required: false }),
+    __metadata("design:type", String)
+], Categoria.prototype, "idCategoriaAntiga", void 0);
 exports.Categoria = Categoria = __decorate([
     (0, mongoose_1.Schema)()
 ], Categoria);

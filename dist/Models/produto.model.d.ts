@@ -25,7 +25,6 @@
 import { Document } from 'mongoose';
 export declare class Produto {
     nome: string;
-    categoria: string;
     categoriaId: string;
     preço: number;
     quantidade: number;

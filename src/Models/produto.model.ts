@@ -7,9 +7,6 @@ export class Produto {
   nome: string;
 
   @Prop({ required: true })
-  categoria: string;
-
-  @Prop({ required: true })
   categoriaId: string;
 
   @Prop({ required: true })

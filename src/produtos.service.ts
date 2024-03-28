@@ -15,7 +15,6 @@ export class ProdutosService {
       await createdProduto.save();
       return createdProduto;
     } catch (error) {
-      console.log(error)
       throw new Error('Erro ao cadastrar produto!');
     }
   }
@@ -25,7 +24,7 @@ export class ProdutosService {
       const produtos = await this.produtoModel.find().exec();
       return produtos;
     } catch (error) {
-      throw new Error('Erro ao trazer os produtos!');      
+      throw new Error('Erro ao trazer os produtos!');
     }
   }
 
@@ -39,11 +38,12 @@ export class ProdutosService {
 
   async update(id: string, updateData: Partial<Produto>): Promise<Produto> {
     try {
-      const updatedProduto = await this.produtoModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
-      
+      const updatedProduto = await this.produtoModel
+        .findByIdAndUpdate(id, updateData, { new: true })
+        .exec();
+
       return updatedProduto;
     } catch (error) {
-      console.log(error);
       throw new Error('Erro ao atualizar produto.');
     }
   }

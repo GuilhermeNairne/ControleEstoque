@@ -26,6 +26,7 @@ import { Document } from 'mongoose';
 export declare class Categoria {
     nome: string;
     idsProdutos: string[];
+    idCategoriaAntiga: string;
 }
 export type CategoriaDocument = Categoria & Document;
 export declare const CategoriaSchema: import("mongoose").Schema<Categoria, import("mongoose").Model<Categoria, any, any, any, Document<unknown, any, Categoria> & Categoria & {

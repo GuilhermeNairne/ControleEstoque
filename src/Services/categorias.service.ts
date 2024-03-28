@@ -16,7 +16,6 @@ export class CategoriasService {
       await createdCategoria.save();
       return createdCategoria;
     } catch (error) {
-      console.log(error);
       throw new Error('Erro ao cadastrar categoria!');
     }
   }
@@ -49,35 +48,84 @@ export class CategoriasService {
 
   async update(id: string, updateData: Partial<Categoria>): Promise<Categoria> {
     try {
+      //Verifica se possui uma categoria antiga. Esse caso ocorre quando muda a categoria do produto
+      if (updateData.idCategoriaAntiga) {
+        //Verifica se as duas caterias existem
+        const categoriaAntiga = await this.categoriaModel
+          .findById(updateData.idCategoriaAntiga)
+          .exec();
+        const categoriaAtual = await this.categoriaModel.findById(id).exec();
+
+        //Verifica se o id do produto está cadastrado nessa categoria
+        const idParaRemover = (updateData.idsProdutos || []).filter(
+          (idProduto) => categoriaAntiga.idsProdutos.includes(idProduto),
+        );
+
+        //Remove o produto que está cadastrado na categoria antiga
+        await this.categoriaModel
+          .findByIdAndUpdate(
+            id,
+            { $pull: { idsProdutos: { $in: idParaRemover } } },
+            { new: true },
+          )
+          .exec();
+
+        //Verifica se o id do produto está cadastrado na categoria atual
+        const idParaAdicionar = (updateData.idsProdutos || []).filter(
+          (idProduto) => !categoriaAtual.idsProdutos.includes(idProduto),
+        );
+
+        //Adiciona o produto na categoria atual
+        const updatedCategoria = await this.categoriaModel
+          .findByIdAndUpdate(
+            id,
+            { $addToSet: { idsProdutos: { $each: idParaAdicionar } } },
+            { new: true },
+          )
+          .exec();
+
+        return updatedCategoria;
+      }
+
       // Verifica se a categoria existe
       const categoria = await this.categoriaModel.findById(id).exec();
       if (!categoria) {
         throw new Error('Categoria não encontrada');
       }
 
-      // Remove os idsProdutos que já estão cadastrados
-      const idsParaRemover = (updateData.idsProdutos || []).filter(
-        (idProduto) => categoria.idsProdutos.includes(idProduto),
+      // Remove o idProduto que já estão cadastrados
+      const idParaRemover = (updateData.idsProdutos || []).filter((idProduto) =>
+        categoria.idsProdutos.includes(idProduto),
       );
 
-      // Remove os idsProdutos que já estão cadastrados na categoria
+      // Remove o idProduto que já estão cadastrados na categoria
       await this.categoriaModel
         .findByIdAndUpdate(
           id,
-          { $pull: { idsProdutos: { $in: idsParaRemover } } },
+          {
+            nome: updateData.nome,
+            $pull: {
+              idsProdutos: { $in: idParaRemover },
+            },
+          },
           { new: true },
         )
         .exec();
 
-      // Adiciona os idsProdutos que não estão cadastrados na categoria
-      const idsParaAdicionar = (updateData.idsProdutos || []).filter(
+      // Adiciona o idProduto que não estão cadastrados na categoria
+      const idParaAdicionar = (updateData.idsProdutos || []).filter(
         (idProduto) => !categoria.idsProdutos.includes(idProduto),
       );
 
       const updatedCategoria = await this.categoriaModel
         .findByIdAndUpdate(
           id,
-          { $addToSet: { idsProdutos: { $each: idsParaAdicionar } } },
+          {
+            nome: updateData.nome,
+            $addToSet: {
+              idsProdutos: { $each: idParaAdicionar },
+            },
+          },
           { new: true },
         )
         .exec();

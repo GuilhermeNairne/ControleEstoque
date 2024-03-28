@@ -21,10 +21,6 @@ __decorate([
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
     __metadata("design:type", String)
-], Produto.prototype, "categoria", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({ required: true }),
-    __metadata("design:type", String)
 ], Produto.prototype, "categoriaId", void 0);
 __decorate([
     (0, mongoose_1.Prop)({ required: true }),
