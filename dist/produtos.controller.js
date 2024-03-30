@@ -40,7 +40,6 @@ let ProdutosController = class ProdutosController {
             return updatedProduto;
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao atualizar produto.');
         }
     }

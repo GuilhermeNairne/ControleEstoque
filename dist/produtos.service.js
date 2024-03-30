@@ -28,7 +28,6 @@ let ProdutosService = class ProdutosService {
             return createdProduto;
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao cadastrar produto!');
         }
     }
@@ -51,11 +50,12 @@ let ProdutosService = class ProdutosService {
     }
     async update(id, updateData) {
         try {
-            const updatedProduto = await this.produtoModel.findByIdAndUpdate(id, updateData, { new: true }).exec();
+            const updatedProduto = await this.produtoModel
+                .findByIdAndUpdate(id, updateData, { new: true })
+                .exec();
             return updatedProduto;
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao atualizar produto.');
         }
     }

@@ -65,7 +65,6 @@ let ProdutosService = class ProdutosService {
             return updatedProduto;
         }
         catch (error) {
-            console.log(error);
             throw new Error('Erro ao atualizar produto.');
         }
     }
