@@ -61,7 +61,7 @@ export class CategoriasService {
           (idProduto) => categoriaAntiga.idsProdutos.includes(idProduto),
         );
 
-        //Remove o produto que está cadastrado na categoria antiga
+        //Remove o produto que está cadastrado na categoria antigaa
         await this.categoriaModel
           .findByIdAndUpdate(
             id,
