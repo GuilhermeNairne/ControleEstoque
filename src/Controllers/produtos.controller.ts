@@ -6,9 +6,11 @@ import {
   Delete,
   Param,
   Patch,
+  Query,
 } from '@nestjs/common';
 import { ProdutosService } from '../Services/produtos.service';
 import { Produto } from '../Models/produto.model';
+import { filterType } from 'src/types/produtosType';
 
 @Controller('/produtos')
 export class ProdutosController {
@@ -20,8 +22,8 @@ export class ProdutosController {
   }
 
   @Get()
-  async get() {
-    return this.produtosService.get();
+  async get(@Query() filter?: filterType) {
+    return this.produtosService.get(filter);
   }
 
   @Delete(':id')

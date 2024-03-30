@@ -25,11 +25,12 @@
 /// <reference types="mongoose/types/inferschematype" />
 import { ProdutosService } from '../Services/produtos.service';
 import { Produto } from '../Models/produto.model';
+import { filterType } from 'src/types/produtosType';
 export declare class ProdutosController {
     private produtosService;
     constructor(produtosService: ProdutosService);
     create(produto: Produto): Promise<Produto>;
-    get(): Promise<{
+    get(filter?: filterType): Promise<{
         categoriaName: string;
         nome: string;
         categoriaId: string;

@@ -25,12 +25,13 @@
 import { Model } from 'mongoose';
 import { Produto, ProdutoDocument } from '../Models/produto.model';
 import { CategoriasService } from './categorias.service';
+import { filterType } from 'src/types/produtosType';
 export declare class ProdutosService {
     private produtoModel;
     private categoriaService;
     constructor(produtoModel: Model<ProdutoDocument>, categoriaService: CategoriasService);
     create(produto: Produto): Promise<Produto>;
-    get(): Promise<{
+    get(filter: filterType): Promise<{
         categoriaName: string;
         nome: string;
         categoriaId: string;

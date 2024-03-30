@@ -33,9 +33,23 @@ let ProdutosService = class ProdutosService {
             throw new Error('Erro ao cadastrar produto!');
         }
     }
-    async get() {
+    async get(filter) {
         try {
-            const produtos = await this.produtoModel.find().exec();
+            let query = {};
+            if (filter.nome) {
+                query['nome'] = { $regex: filter.nome, $options: 'i' };
+            }
+            let sort = {};
+            if (filter.preço === 'asc') {
+                sort['preço'] = 1;
+            }
+            else if (filter.preço === 'desc') {
+                sort['preço'] = -1;
+            }
+            if (filter.categoriaId) {
+                query['categoriaId'] = filter.categoriaId;
+            }
+            const produtos = await this.produtoModel.find(query).sort(sort).exec();
             const categoriaIds = produtos.map((produto) => produto.categoriaId);
             const categoriasPromises = categoriaIds.map((categoriaId) => this.categoriaService.getById(categoriaId));
             const categorias = await Promise.all(categoriasPromises);

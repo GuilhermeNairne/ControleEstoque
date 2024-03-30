@@ -23,8 +23,8 @@ let ProdutosController = class ProdutosController {
     async create(produto) {
         return this.produtosService.create(produto);
     }
-    async get() {
-        return this.produtosService.get();
+    async get(filter) {
+        return this.produtosService.get(filter);
     }
     async delete(id) {
         try {
@@ -49,8 +49,9 @@ __decorate([
 ], ProdutosController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ProdutosController.prototype, "get", null);
 __decorate([
