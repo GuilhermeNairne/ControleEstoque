@@ -1,23 +1,43 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
-import { ProdutosController } from './Controllers/produtos.controller';
-import { ProdutosService } from './Services/produtos.service';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Produto, ProdutoSchema } from './Models/produto.model';
 import { config } from 'dotenv';
-import { CategoriasController } from './Controllers/categorias.controller';
-import { CategoriasService } from './Services/categorias.service';
-import { Categoria, CategoriaSchema } from './Models/categoria.model';
+import { Produto, ProdutoSchema } from './Produtos/schemas/produto.schema';
+import {
+  Categoria,
+  CategoriaSchema,
+} from './Categorias/schemas/categoria.schema';
+import { ProdutosController } from './Produtos/produtos.controller';
+import { CategoriasService } from './Categorias/categorias.service';
+import { CategoriasController } from './Categorias/categorias.controller';
+import { ProdutosService } from './Produtos/produtos.service';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { CategoriaModule } from './Categorias/categorias.module';
+import { ProdutosModule } from './Produtos/produtos.module';
+
 config();
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/snaptoon'),
-    MongooseModule.forFeature([{ name: Produto.name, schema: ProdutoSchema }]),
-    MongooseModule.forFeature([
-      { name: Categoria.name, schema: CategoriaSchema },
-    ]),
+    AuthModule,
+    UsersModule,
+    CategoriaModule,
+    ProdutosModule,
   ],
-  controllers: [ProdutosController, CategoriasController],
-  providers: [ProdutosService, CategoriasService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.POST });
+  }
+}
