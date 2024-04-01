@@ -8,29 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const produtos_controller_1 = require("./Controllers/produtos.controller");
-const produtos_service_1 = require("./Services/produtos.service");
 const mongoose_1 = require("@nestjs/mongoose");
-const produto_model_1 = require("./Models/produto.model");
 const dotenv_1 = require("dotenv");
-const categorias_controller_1 = require("./Controllers/categorias.controller");
-const categorias_service_1 = require("./Services/categorias.service");
-const categoria_model_1 = require("./Models/categoria.model");
+const logger_middleware_1 = require("./middleware/logger.middleware");
+const auth_module_1 = require("./auth/auth.module");
+const users_module_1 = require("./users/users.module");
+const categorias_module_1 = require("./Categorias/categorias.module");
+const produtos_module_1 = require("./Produtos/produtos.module");
 (0, dotenv_1.config)();
 let AppModule = class AppModule {
+    configure(consumer) {
+        consumer
+            .apply(logger_middleware_1.LoggerMiddleware)
+            .forRoutes({ path: '*', method: common_1.RequestMethod.POST });
+    }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/snaptoon'),
-            mongoose_1.MongooseModule.forFeature([{ name: produto_model_1.Produto.name, schema: produto_model_1.ProdutoSchema }]),
-            mongoose_1.MongooseModule.forFeature([
-                { name: categoria_model_1.Categoria.name, schema: categoria_model_1.CategoriaSchema },
-            ]),
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
+            categorias_module_1.CategoriaModule,
+            produtos_module_1.ProdutosModule,
         ],
-        controllers: [produtos_controller_1.ProdutosController, categorias_controller_1.CategoriasController],
-        providers: [produtos_service_1.ProdutosService, categorias_service_1.CategoriasService],
+        controllers: [],
+        providers: [],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
