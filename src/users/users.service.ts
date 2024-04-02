@@ -10,13 +10,13 @@ export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
   async create(createUserDto: CreateUserDto) {
-    createUserDto.password = await this.userHash(createUserDto.password);
+    createUserDto.senha = await this.userHash(createUserDto.senha);
 
     this.userModel.create(createUserDto);
   }
 
   findOne(username: string) {
-    const findedUser = this.userModel.findOne({ username: username });
+    const findedUser = this.userModel.findOne({ usuario: username });
     return findedUser;
   }
 

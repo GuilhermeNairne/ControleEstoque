@@ -13,18 +13,20 @@ export class CreateUserDto {
   @IsNotEmpty()
   @MinLength(3)
   @MaxLength(50)
-  username: string;
+  usuario: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(20)
-  password: string;
-
-  @IsInt()
-  @Max(100)
-  age: number;
+  senha: string;
 
   @IsEmail()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(3)
+  @MaxLength(50)
+  funcao: string;
 }
