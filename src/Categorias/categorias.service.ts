@@ -68,7 +68,7 @@ export class CategoriasService {
         //Remove o produto que está cadastrado na categoria antigaa
         await this.categoriaModel
           .findByIdAndUpdate(
-            id,
+            updateData.idCategoriaAntiga,
             { $pull: { idsProdutos: { $in: idParaRemover } } },
             { new: true },
           )
