@@ -23,6 +23,7 @@ export class AuthService {
       access_token: await this.jwtService.signAsync(payload),
       usuario: user.usuario,
       funcao: user.funcao,
+      urlImage: user.urlImage,
     };
   }
 }

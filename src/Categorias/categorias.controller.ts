@@ -8,9 +8,9 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 import { CategoriasService } from './categorias.service';
 import { CategoriaDto } from './dtos/categorias.dtos';
-import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('/categorias')
 @UseGuards(AuthGuard)

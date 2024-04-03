@@ -10,11 +10,11 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const dotenv_1 = require("dotenv");
-const logger_middleware_1 = require("./middleware/logger.middleware");
-const auth_module_1 = require("./auth/auth.module");
-const users_module_1 = require("./users/users.module");
 const categorias_module_1 = require("./Categorias/categorias.module");
 const produtos_module_1 = require("./Produtos/produtos.module");
+const auth_module_1 = require("./auth/auth.module");
+const logger_middleware_1 = require("./middleware/logger.middleware");
+const users_module_1 = require("./users/users.module");
 (0, dotenv_1.config)();
 let AppModule = class AppModule {
     configure(consumer) {

@@ -8,12 +8,11 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dtos/create-user-dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { CreateUserDto } from './dtos/create-user-dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
-@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -23,6 +22,7 @@ export class UsersController {
   }
 
   @Get(':username')
+  @UseGuards(AuthGuard)
   findOne(@Param('username') username: string) {
     try {
       return this.usersService.findOne(username);
@@ -41,6 +41,7 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(AuthGuard)
   findAll() {
     return this.usersService.findAll();
   }

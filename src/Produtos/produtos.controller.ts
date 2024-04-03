@@ -1,19 +1,18 @@
 import {
-  Controller,
-  Post,
   Body,
-  Get,
+  Controller,
   Delete,
+  Get,
   Param,
   Patch,
+  Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ProdutosService } from './produtos.service';
-import { Produto } from './schemas/produto.schema';
 import { filterType } from 'src/Categorias/produtosType';
-import { ProdutoDto } from './dtos/produtos.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ProdutoDto } from './dtos/produtos.dto';
+import { ProdutosService } from './produtos.service';
 
 @Controller('/produtos')
 @UseGuards(AuthGuard)

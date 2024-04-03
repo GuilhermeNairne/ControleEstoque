@@ -29,4 +29,9 @@ export class CreateUserDto {
   @MinLength(3)
   @MaxLength(50)
   funcao: string;
+
+  @IsString()
+  @MinLength(3)
+  @MaxLength(200)
+  urlImage: string;
 }

@@ -6,20 +6,11 @@ import {
 } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { config } from 'dotenv';
-import { Produto, ProdutoSchema } from './Produtos/schemas/produto.schema';
-import {
-  Categoria,
-  CategoriaSchema,
-} from './Categorias/schemas/categoria.schema';
-import { ProdutosController } from './Produtos/produtos.controller';
-import { CategoriasService } from './Categorias/categorias.service';
-import { CategoriasController } from './Categorias/categorias.controller';
-import { ProdutosService } from './Produtos/produtos.service';
-import { LoggerMiddleware } from './middleware/logger.middleware';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { CategoriaModule } from './Categorias/categorias.module';
 import { ProdutosModule } from './Produtos/produtos.module';
+import { AuthModule } from './auth/auth.module';
+import { LoggerMiddleware } from './middleware/logger.middleware';
+import { UsersModule } from './users/users.module';
 
 config();
 
