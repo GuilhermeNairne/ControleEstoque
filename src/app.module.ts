@@ -25,7 +25,9 @@ config();
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017/snaptoon'),
+    MongooseModule.forRoot(
+      'mongodb+srv://renanjdr123:senha123@controledeestoque.4xr5tju.mongodb.net/',
+    ),
     AuthModule,
     UsersModule,
     CategoriaModule,

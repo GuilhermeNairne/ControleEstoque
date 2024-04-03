@@ -27,7 +27,7 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/snaptoon'),
+            mongoose_1.MongooseModule.forRoot('mongodb+srv://renanjdr123:senha123@controledeestoque.4xr5tju.mongodb.net/'),
             auth_module_1.AuthModule,
             users_module_1.UsersModule,
             categorias_module_1.CategoriaModule,

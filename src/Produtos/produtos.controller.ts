@@ -7,13 +7,16 @@ import {
   Param,
   Patch,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProdutosService } from './produtos.service';
 import { Produto } from './schemas/produto.schema';
 import { filterType } from 'src/Categorias/produtosType';
 import { ProdutoDto } from './dtos/produtos.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('/produtos')
+@UseGuards(AuthGuard)
 export class ProdutosController {
   constructor(private produtosService: ProdutosService) {}
 

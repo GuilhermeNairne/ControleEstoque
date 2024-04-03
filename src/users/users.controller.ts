@@ -13,6 +13,7 @@ import { CreateUserDto } from './dtos/create-user-dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -39,7 +40,6 @@ export class UsersController {
     }
   }
 
-  @UseGuards(AuthGuard)
   @Get()
   findAll() {
     return this.usersService.findAll();

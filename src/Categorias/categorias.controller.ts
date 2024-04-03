@@ -6,12 +6,14 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CategoriasService } from './categorias.service';
-import { Categoria } from './schemas/categoria.schema';
 import { CategoriaDto } from './dtos/categorias.dtos';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('/categorias')
+@UseGuards(AuthGuard)
 export class CategoriasController {
   constructor(private categoriasService: CategoriasService) {}
 
