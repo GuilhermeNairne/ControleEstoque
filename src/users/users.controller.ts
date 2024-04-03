@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -19,6 +20,12 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Patch(':_id')
+  @UseGuards(AuthGuard)
+  update(@Param() _id: string, @Body() updateUserDto: CreateUserDto) {
+    return this.usersService.update(_id, updateUserDto);
   }
 
   @Get(':username')

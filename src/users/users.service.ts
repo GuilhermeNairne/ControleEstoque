@@ -15,6 +15,19 @@ export class UsersService {
     this.userModel.create(createUserDto);
   }
 
+  async update(_id: string, updateData: Partial<CreateUserDto>) {
+    try {
+      const updateUser = await this.userModel
+        .findByIdAndUpdate(_id, updateData, { new: true })
+        .exec();
+
+      return updateUser;
+    } catch (error) {
+      console.log(error);
+      throw new Error('Erro ao atualizar usuário.');
+    }
+  }
+
   findOne(username: string) {
     const findedUser = this.userModel.findOne({ usuario: username });
     return findedUser;

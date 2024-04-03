@@ -32,6 +32,6 @@ export class CreateUserDto {
 
   @IsString()
   @MinLength(3)
-  @MaxLength(200)
+  @MaxLength(300)
   urlImage: string;
 }
