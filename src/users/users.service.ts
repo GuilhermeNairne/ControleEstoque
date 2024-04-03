@@ -23,7 +23,6 @@ export class UsersService {
 
       return updateUser;
     } catch (error) {
-      console.log(error);
       throw new Error('Erro ao atualizar usuário.');
     }
   }
