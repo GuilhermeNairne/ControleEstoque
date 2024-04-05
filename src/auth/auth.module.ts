@@ -4,10 +4,14 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
+import { RefreshTokenService } from './services/refresh-token.service';
+import { HttpModule, HttpService } from '@nestjs/axios';
+import { RefreshUseCase } from './use-case/refresh.usecase';
 
 @Module({
   imports: [
     UsersModule,
+    HttpModule,
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,
@@ -15,6 +19,6 @@ import { jwtConstants } from './constants';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, RefreshTokenService, RefreshUseCase],
 })
 export class AuthModule {}

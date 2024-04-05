@@ -18,9 +18,17 @@ export class AuthService {
     if (!isMath) throw new UnauthorizedException();
 
     const payload = { sub: user._id, userMail: user.usuario };
+    const refreshPayload = { sub: user._id, type: 'refresh' };
+
+    const refresh_token = this.jwtService.sign(refreshPayload, {
+      expiresIn: '2d',
+    });
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token: await this.jwtService.signAsync(payload, {
+        expiresIn: '1d',
+      }),
+      refresh_token: refresh_token,
       usuario: user.usuario,
       funcao: user.funcao,
       urlImage: user.urlImage,
