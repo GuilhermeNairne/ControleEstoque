@@ -31,7 +31,9 @@ export class AuthService {
       refresh_token: refresh_token,
       usuario: user.usuario,
       funcao: user.funcao,
+      email: user.email,
       urlImage: user.urlImage,
+      _id: user._id,
     };
   }
 }
