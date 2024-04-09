@@ -92,4 +92,43 @@ export class ProdutosService {
       throw new Error('Erro ao atualizar produto.');
     }
   }
+
+  async updateEstoque(updateData: { _id: string; quantidade: number }[]) {
+    let updatedProdutos = [];
+
+    try {
+      for (const produtoUpdate of updateData) {
+        // Buscar o produto atual no banco de dados
+        const produtoAtual = await this.produtoModel.findById(
+          produtoUpdate._id,
+        );
+
+        if (!produtoAtual) {
+          throw new Error(
+            `Produto não encontrado para _id ${produtoUpdate._id}`,
+          );
+        }
+
+        // Calcular a nova quantidade
+        const novaQuantidade =
+          produtoAtual.quantidade - produtoUpdate.quantidade;
+
+        // Atualizar a quantidade no banco de dados
+        const updatedProduto = await this.produtoModel
+          .findByIdAndUpdate(
+            produtoUpdate._id,
+            { quantidade: novaQuantidade },
+            { new: true },
+          )
+          .exec();
+
+        updatedProdutos.push(updatedProduto);
+      }
+
+      return updatedProdutos;
+    } catch (error) {
+      console.error('Erro ao atualizar o estoque:', error);
+      throw new Error('Erro ao atualizar o estoque.');
+    }
+  }
 }

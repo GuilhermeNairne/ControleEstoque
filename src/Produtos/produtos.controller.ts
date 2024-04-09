@@ -46,4 +46,12 @@ export class ProdutosController {
     const updatedProduto = await this.produtosService.update(id, updateData);
     return updatedProduto;
   }
+
+  @Post('/atualiza-estoque')
+  async updateEstoque(
+    @Body() updateData: { _id: string; quantidade: number }[],
+  ) {
+    const updatedProduto = await this.produtosService.updateEstoque(updateData);
+    return updatedProduto;
+  }
 }
